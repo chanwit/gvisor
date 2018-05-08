@@ -15,4 +15,5 @@ go_binary(
         "//runsc/cmd",
         "@com_github_google_subcommands//:go_default_library",
     ],
+    x_defs = {"main.gitRevision": "{GIT_REVISION}"}
 )
