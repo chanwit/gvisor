@@ -41,6 +41,7 @@ var (
 	logFilename = flag.String("log", "", "file path where internal debug information is written, default is stdout")
 	logFormat   = flag.String("log-format", "text", "log format: text (default) or json")
 	debug       = flag.Bool("debug", false, "enable debug logging")
+	version     = flag.Bool("version", false, "display version number and exit")
 
 	// These flags are unique to runsc, and are used to configure parts of the
 	// system that are not covered by the runtime spec.
@@ -90,6 +91,13 @@ func main() {
 
 	// All subcommands must be registered before flag parsing.
 	flag.Parse()
+
+	if *version {
+		fmt.Printf("runsc version 0.0.0\n")
+		fmt.Printf("commit: %s\n", gitRevision)
+		fmt.Printf("spec: 1.0.0\n")
+		os.Exit(0)
+	}
 
 	platformType, err := boot.MakePlatformType(*platform)
 	if err != nil {
